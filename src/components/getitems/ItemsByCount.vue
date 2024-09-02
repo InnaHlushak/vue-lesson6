@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import axiosInstance from "../../../services/axios";
+    //import axiosInstance from "../../../services/axios";
     //імпортувати store який створили у PINIA
     //те необхідні функції для роботи із store
     import {useItemsByCountStore} from "../../store/ItemsByCountStore.js";
@@ -39,22 +39,10 @@
                 page: 1, //pagination page
             }
         },
-        methods: {
-           //зробити доспупними у компоненті функції(дії) із відповідного сховища 
-           ...mapActions(useApiStore, ['updateCount','getUrlApiByCount']),
-           ...mapActions(useItemsByCountStore, ['getItems','setParamsPagination','paginatedList']),
-
-           //оновити стан сховища, врахувавши параметри задані користувачем
-           setCount() {
-            this.updateCount(this.userCount);
-            this. getUrlApiByCount();
-           },
-        },
         computed: {
             //зробити доступними у компоненті змінні із відповідного сховища
-            ...mapState(useApiStore, ['count', 'urlApiByCount']),
+            ...mapState(useApiStore, ['urlApiByCount']),
             ...mapState(useItemsByCountStore, ['items','paramsPagination']),
-            
             //зробити пагінацію списку отриманих елементів
             paginationListItems() {
                 let list = [];   
@@ -62,6 +50,15 @@
                 list =  this.paginatedList(this.page);
                 return list;
            }
+        },
+        methods: {
+           //зробити доспупними у компоненті функції(дії) із відповідного сховища 
+           ...mapActions(useApiStore, ['updateCount']),
+           ...mapActions(useItemsByCountStore, ['getItems','setParamsPagination','paginatedList']),
+           //оновити стан сховища, врахувавши параметри задані користувачем
+           setCount() {
+            this.updateCount(this.userCount);
+           },
         },
         //щоб  запит до АРІ спрацював коли компонент буде монтуватися треба звернутися до хукі життєвого циклу
         mounted() {

@@ -26,7 +26,7 @@
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col>
-                    <router-link :to="{name: 'sign-up-user'}">
+                    <router-link to="/sign-up-user">
                         <v-btn v-if="!isLogged" color="orange" class="navigation-btn">Sign up</v-btn>
                     </router-link>
                     <router-link to="/login-user">
@@ -48,12 +48,14 @@ import { useInfoUserStore } from "./store/InfoUserStore.js";
 
 export default {
     name: 'App',
-    data() {
-        return {
-        isLogged: useInfoUserStore().isLogged,
-        textButtonLogin: (useInfoUserStore().isLogged) ? 'Log Out' : 'Login',
+    computed: {
+        isLogged() {
+            return useInfoUserStore().isLogged;
+        },
+        textButtonLogin() {
+            return (useInfoUserStore().isLogged) ? 'Log Out' : 'Login';
         }
-    },
+    }
 }
 </script>
 

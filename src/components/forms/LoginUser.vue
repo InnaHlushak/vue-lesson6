@@ -121,7 +121,6 @@ export default {
     watch: {
         isLoggedIn() {
             useInfoUserStore().isLogged = this.isLoggedIn;
-            alert('isLogged in PINIA:  ' + useInfoUserStore().isLogged);
         }
     },  
     mounted() {
